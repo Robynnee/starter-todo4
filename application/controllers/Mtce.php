@@ -20,6 +20,8 @@ class Mtce extends Application
                 $task->status = $this->app->status($task->status);
             $result .= $this->parser->parse('oneitem', (array) $task, true);
         }
+        $role = $this->session->userdata('userrole');
+        $this->data['pagetitle'] = 'TODO List Maintenance ('. $role . ')';
         $this->data['display_tasks'] = $result;
 
         // and then pass them on
