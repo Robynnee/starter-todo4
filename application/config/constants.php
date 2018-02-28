@@ -33,6 +33,18 @@ defined('DIR_WRITE_MODE')  OR define('DIR_WRITE_MODE', 0755);
 
 /*
 |--------------------------------------------------------------------------
+| File User Roles
+|--------------------------------------------------------------------------
+|
+| These user roles will be used in a few places
+|
+*/
+
+defined('ROLE_GUEST') OR define('ROLE_GUEST', 'Guest');
+defined('ROLE_OWNER') OR define('ROLE_OWNER', 'Owner');
+
+/*
+|--------------------------------------------------------------------------
 | File Stream Modes
 |--------------------------------------------------------------------------
 |
