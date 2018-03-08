@@ -1,6 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
-class CITest extends TestCase
+class TaskTest extends TestCase
 {
     private $CI;
     private $task;
@@ -21,7 +21,7 @@ class CITest extends TestCase
     function testInvalidLongTask()
     {
         $this->expectException('InvalidArgumentException');
-        $badValue;
+        $badValue = '';
         for ($i = 0; $i < 256; $i++)
         {
             $badValue .= 'a';
