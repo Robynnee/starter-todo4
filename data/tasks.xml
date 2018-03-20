@@ -1,5 +1,6 @@
 <tasks>
-    <task id="1">
+    <task>
+        <id>1</id>
         <desc>Comp1234 Assignment</desc>
         <priority>3</priority>
         <size>2</size>
@@ -9,7 +10,8 @@
         <flag></flag>
     </task>
     
-    <task id="2">
+    <task>
+        <id>2</id>
         <desc>Mow the lawn</desc>
         <priority>2</priority>
         <size>2</size>
@@ -19,7 +21,8 @@
         <flag></flag>
     </task>
     
-    <task id="3">
+    <task>
+        <id>3</id>
         <desc>Wash the car</desc>
         <priority>2</priority>
         <size>2</size>
@@ -29,7 +32,8 @@
         <flag></flag>
     </task>
     
-    <task id="4">
+    <task>
+        <id>4</id>
         <desc>Wash the car</desc>
         <priority>2</priority>
         <size>2</size>
@@ -39,7 +43,8 @@
         <flag></flag>
     </task>
     
-    <task id="5">
+    <task>
+        <id>5</id>
         <desc>Intramural hockey game</desc>
         <priority>1</priority>
         <size>2</size>
@@ -49,7 +54,8 @@
         <flag></flag>
     </task>
     
-    <task id="6">
+    <task>
+        <id>6</id>
         <desc>Canucks hockey game</desc>
         <priority>3</priority>
         <size>3</size>
