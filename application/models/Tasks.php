@@ -40,6 +40,7 @@ class Tasks extends XML_Model {
         else
             return 0;
     }
+    
     protected function load()
     {
 
@@ -53,7 +54,7 @@ class Tasks extends XML_Model {
                 $record->size = (int) $task->size;
                 $record->group = (int) $task->group;
                 $record->deadline = (string) $task->deadline;
-                $record->status = (int) $task->status;
+                $record->status = empty($task->status) ? null : (int) $task->status;
                 $record->flag = (int) $task->flag;
 
                 $this->_data[$record->id] = $record;
@@ -62,8 +63,13 @@ class Tasks extends XML_Model {
 
         // rebuild the keys table
         $this->reindex();   
-
     }
+    
+    protected function store()
+    {
+        
+    }
+    
     // provide form validation rules
     public function rules()
     {
