@@ -1,10 +1,10 @@
 <?php
 
-class Tasks extends CSV_Model {
+class Tasks extends XML_Model {
 
     public function __construct()
     {
-            parent::__construct(APPPATH . '../data/tasks.csv', 'id');
+            parent::__construct(APPPATH . '../data/tasks.xml', 'id');
     }
 
     public function getCategorizedTasks()
@@ -39,6 +39,81 @@ class Tasks extends CSV_Model {
             return 1;
         else
             return 0;
+    }
+    
+    protected function load()
+    {
+        if (($tasks = simplexml_load_file($this->_origin)) !== FALSE)
+        {
+            foreach ($tasks as $task) {
+                $record = new stdClass();
+                $record->id = (int) $task->id;
+                $record->task = (string) $task->desc;
+                $record->priority = (int) $task->priority;
+                $record->size = (int) $task->size;
+                $record->group = (int) $task->group;
+                $record->deadline = (string) $task->deadline;
+                $record->status = empty($task->status) ? null : (int) $task->status;
+                $record->flag = (int) $task->flag;
+
+                $this->_data[$record->id] = $record;
+            }
+        }
+
+        // rebuild the keys table
+        $this->reindex();   
+    }
+    
+    protected function store()
+    {
+        if (($handle = fopen($this->_origin, "w")) !== FALSE)
+		{
+            $xmlDoc = new DOMDocument( "1.0");
+            $xmlDoc->preserveWhiteSpace = false;
+            $xmlDoc->formatOutput = true;
+            $data = $xmlDoc->createElement("tasks");
+            foreach($this->_data as $key => $value)
+            {
+                $task  = $xmlDoc->createElement("task");
+
+                // id
+                $item = $xmlDoc->createElement("id", htmlspecialchars($value->id));
+                $task->appendChild($item);
+                
+                // task desc
+                $item = $xmlDoc->createElement("desc", htmlspecialchars($value->task));
+                $task->appendChild($item);
+                
+                // priority
+                $item = $xmlDoc->createElement("priority", htmlspecialchars($value->priority));
+                $task->appendChild($item);
+                
+                // size
+                $item = $xmlDoc->createElement("size", htmlspecialchars($value->size));
+                $task->appendChild($item);
+                
+                // group
+                $item = $xmlDoc->createElement("group", htmlspecialchars($value->group));
+                $task->appendChild($item);
+                
+                // deadline
+                $item = $xmlDoc->createElement("deadline", htmlspecialchars($value->deadline));
+                $task->appendChild($item);
+                
+                // status
+                $item = $xmlDoc->createElement("status", htmlspecialchars($value->status));
+                $task->appendChild($item);
+                
+                // flag
+                $item = $xmlDoc->createElement("flag", htmlspecialchars($value->flag));
+                $task->appendChild($item);
+                    
+                $data->appendChild($task);
+            }
+            $xmlDoc->appendChild($data);
+            $xmlDoc->saveXML($xmlDoc);
+            $xmlDoc->save($this->_origin);
+		}
     }
     
     // provide form validation rules
